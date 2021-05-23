@@ -6,9 +6,9 @@ class Ping:
 
     def __init__(self, ip):
         self.ip = ip
+        pass
 
-    def test_ping(self):
-        # print('run', self.ip)
+    def test(self):
         ftp_ret = subprocess.Popen(
             'ping %s -n 2' % self.ip, stdin=subprocess.PIPE, stdout=subprocess.PIPE, shell=True)
         ret = ftp_ret.stdout.read()
@@ -22,7 +22,12 @@ class Ping:
         # 检查输出里面有没有TTL，有的话就先认为连通
         ret_s = re.search("TTL", str_ret)
 
-        if ret_s:
+        return ret_s
+        pass
+
+    def test_ping(self):
+
+        if self.test():
             print(self.ip, 'ok')
         else:
             print(self.ip, 'no')
